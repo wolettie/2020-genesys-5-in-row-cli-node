@@ -8,7 +8,7 @@ import {AxiosError, AxiosResponse} from 'axios';
  * Put as much console output & input method here
  */
 
-export function playerInfoInput(): Promise<unknown> {
+export function playerInfoInput(): Promise<{playerName: string, colour: string}> {
     return prompt([
         {
             type: 'text',
@@ -125,7 +125,7 @@ export async function playAgainConfirmation() : Promise<boolean> {
     return value;
 }
 
-export function translateAxiosError(error: AxiosError) : string {
+export function translateAxiosError(error: AxiosError) : string | undefined {
     switch (error.code) {
     case 'ECONNREFUSED':
         return 'failed to connect the server';

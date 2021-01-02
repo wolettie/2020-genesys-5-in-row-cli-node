@@ -6,8 +6,8 @@ import {BehaviorSubject, interval, Subscription} from 'rxjs';
 import {Player} from './model/player.model';
 import {Observable} from 'rxjs/internal/Observable';
 
-const gameEvent: BehaviorSubject<Game> = new BehaviorSubject<Game>(undefined);
-const playerEvent: BehaviorSubject<Player> = new BehaviorSubject<Player>(undefined);
+const gameEvent: BehaviorSubject<Game> = new BehaviorSubject<Game>({} as Game);
+const playerEvent: BehaviorSubject<Player> = new BehaviorSubject<Player>({} as Player);
 let gamePollInterval: Observable<number>;
 let gameEventSub: Subscription;
 let playerEventSub: Subscription;
@@ -48,7 +48,7 @@ function playerRegistration() : void {
 }
 
 function registerPlayer(playerName: string, colour: string) {
-    gameEvent.next(undefined);
+    gameEvent.next({} as Game);
     request.registerUser(playerName).then(({data}) => {
         playerRegistered(data, playerName, colour);
     }).catch(error => {
@@ -59,7 +59,7 @@ function registerPlayer(playerName: string, colour: string) {
 }
 
 function playerRegistered(token: string, playerName: string, colour: string) : void {
-    const uuid = decode(token, {json: true}).user_uuid;
+    const uuid = decode(token, {json: true})?.user_uuid;
     const player = {uuid, token, colour, name: playerName} as Player;
     playerEvent.next(player);
 }
@@ -69,7 +69,7 @@ function startPolling() : void {
     // keep polling game status
     if (!gameEvent.value?.winner) {
         gamePollIntervalSub = gamePollInterval.subscribe(() => {
-            if (playerEvent.value) {
+            if (playerEvent.value.token) {
                 request.checkGameStatus(playerEvent.value.token).then(game => {
                     gameEvent.next(game.data);
                 }).catch(err => {
@@ -113,7 +113,7 @@ async function onNewGameStatus(player: Player, game: Game) : Promise<void> {
                     closeGame();
                 }
             });
-    } else if (game) {
+    } else if (game?.uuid) {
         display.displayBoard(player, game);
         if (game.currentPlayer.uuid === player.uuid) {
             myTurn(player, game);
@@ -143,7 +143,7 @@ async function closeGame() : Promise<void> {
     playerEvent?.complete();
     gameEvent?.complete();
     try {
-        if (player) {
+        if (player.token) {
             await request.disconnect(player.token);
         }
     } finally {
