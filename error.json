@@ -1,0 +1,88 @@
+response: {
+status: 500,
+statusText: '',
+headers: {
+'x-content-type-options': 'nosniff',
+'x-xss-protection': '1; mode=block',
+'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
+pragma: 'no-cache',
+expires: '0',
+'x-frame-options': 'DENY',
+'content-type': 'application/json',
+'transfer-encoding': 'chunked',
+date: 'Tue, 29 Dec 2020 18:25:33 GMT',
+connection: 'close'
+},
+config: {
+url: 'http://localhost:8080/five-a-row/api/v1/game/dropDisc',
+method: 'post',
+data: '{"column":0}',
+headers: [Object],
+transformRequest: [Array],
+transformResponse: [Array],
+timeout: 0,
+adapter: [Function: httpAdapter],
+xsrfCookieName: 'XSRF-TOKEN',
+xsrfHeaderName: 'X-XSRF-TOKEN',
+maxContentLength: -1,
+maxBodyLength: -1,
+validateStatus: [Function: validateStatus]
+},
+request: <ref *1> ClientRequest {
+_events: [Object: null prototype],
+_eventsCount: 7,
+_maxListeners: undefined,
+outputData: [],
+outputSize: 0,
+writable: true,
+destroyed: false,
+_last: true,
+chunkedEncoding: false,
+shouldKeepAlive: false,
+_defaultKeepAlive: true,
+useChunkedEncodingByDefault: true,
+sendDate: false,
+_removedConnection: false,
+_removedContLen: false,
+_removedTE: false,
+_contentLength: null,
+_hasBody: true,
+_trailer: '',
+finished: true,
+_headerSent: true,
+socket: [Socket],
+_header: 'POST /five-a-row/api/v1/game/dropDisc HTTP/1.1\r\n' +
+'Accept: application/json, text/plain, */*\r\n' +
+'Content-Type: application/json;charset=utf-8\r\n' +
+'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX3V1aWQiOiJmMjkwZjczZS05MjA2LTQwMjMtYWRkYi0yMWZlNWE3YTc1NzMifQ.GnH1lsLxCiV0IQlqj7B_JSn5oURwm28zuht0J_30x6M\r\n' +
+'User-Agent: axios/0.21.1\r\n' +
+'Content-Length: 12\r\n' +
+'Host: localhost:8080\r\n' +
+'Connection: close\r\n' +
+'\r\n',
+_keepAliveTimeout: 0,
+_onPendingData: [Function: noopPendingOutput],
+agent: [Agent],
+socketPath: undefined,
+method: 'POST',
+maxHeaderSize: undefined,
+insecureHTTPParser: undefined,
+path: '/five-a-row/api/v1/game/dropDisc',
+_ended: true,
+res: [IncomingMessage],
+aborted: false,
+timeoutCb: null,
+upgradeOrConnect: false,
+parser: null,
+maxHeadersCount: null,
+reusedSocket: false,
+host: 'localhost',
+protocol: 'http:',
+_redirectable: [Writable],
+[Symbol(kCapture)]: false,
+[Symbol(kNeedDrain)]: false,
+[Symbol(corked)]: 0,
+[Symbol(kOutHeaders)]: [Object: null prototype]
+},
+data: { game: null, errorMessage: 'column 0 is already filled' }
+}
