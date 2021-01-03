@@ -6,8 +6,8 @@ import {BehaviorSubject, interval, Subscription} from 'rxjs';
 import {Player} from './model/player.model';
 import {Observable} from 'rxjs/internal/Observable';
 
-const gameEvent: BehaviorSubject<Game> = new BehaviorSubject<Game>({} as Game);
-const playerEvent: BehaviorSubject<Player> = new BehaviorSubject<Player>({} as Player);
+const gameEvent: BehaviorSubject<Game> = new BehaviorSubject<Game>(null);
+const playerEvent: BehaviorSubject<Player> = new BehaviorSubject<Player>(null);
 let gamePollInterval: Observable<number>;
 let gameEventSub: Subscription;
 let playerEventSub: Subscription;
@@ -69,7 +69,7 @@ function startPolling() : void {
     // keep polling game status
     if (!gameEvent.value?.winner) {
         gamePollIntervalSub = gamePollInterval.subscribe(() => {
-            if (playerEvent.value.token) {
+            if (playerEvent.value?.token) {
                 request.checkGameStatus(playerEvent.value.token).then(game => {
                     gameEvent.next(game.data);
                 }).catch(err => {
@@ -120,7 +120,7 @@ async function onNewGameStatus(player: Player, game: Game) : Promise<void> {
         } else {
             console.log(`waiting ${game.currentPlayer.name} to drop disc`);
         }
-    } else {
+    } else if (game) {
         console.log('Waiting game to start');
     }
 }

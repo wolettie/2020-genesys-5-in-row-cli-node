@@ -65,7 +65,7 @@ export async function selectColumn(player: Player, game: Game) : Promise<number>
         {
             type: 'number',
             name: 'column',
-            message: `It's your turn ${player.name}! Drop disc between 1 and ${game.board.length}`,
+            message: `It's your turn ${player.name}, please enter column (1-${game.board.length}): `,
             validate: value => value > 0 && value <= game.board.length ? true : 'Out of range!'
         }
     );
